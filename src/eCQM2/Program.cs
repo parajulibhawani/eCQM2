@@ -64,7 +64,9 @@ namespace eCQM2
 
                     //measure grouping
                     var measureGroupingNodes = xmlDoc.Root?.XPathSelectElements("/measure/measureGrouping/group/clause")?.ToList();
-
+                    //sub tree lookup
+                    var subTreeGrouping = xmlDoc.Root?.XPathSelectElements("/measure/subTreeLookUp/subTree")?.ToList();
+ 
                     //element lookup
                     var elementLookUpList = xmlDoc.Root?.XPathSelectElements("/measure/elementLookUp/qdm")?.ToList();
                 }

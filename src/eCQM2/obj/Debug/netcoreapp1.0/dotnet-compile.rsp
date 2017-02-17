@@ -1,5 +1,5 @@
---temp-output:C:\Users\b162-\Source\Repos\DispensaryApi\eCQM2\src\eCQM2\obj\Debug\netcoreapp1.0\
---out:C:\Users\b162-\Source\Repos\DispensaryApi\eCQM2\src\eCQM2\bin\Debug\netcoreapp1.0\eCQM2.dll
+--temp-output:C:\Users\b162-\Source\Repos\eCQM2\src\eCQM2\obj\Debug\netcoreapp1.0\
+--out:C:\Users\b162-\Source\Repos\eCQM2\src\eCQM2\bin\Debug\netcoreapp1.0\eCQM2.dll
 --define:DEBUG
 --define:TRACE
 --define:NETCOREAPP1_0
@@ -113,5 +113,5 @@
 --reference:C:\Users\b162-\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll
 --reference:C:\Users\b162-\.nuget\packages\System.Xml.XPath\4.0.1\ref\netstandard1.3\System.Xml.XPath.dll
 --reference:C:\Users\b162-\.nuget\packages\System.Xml.XPath.XDocument\4.0.1\ref\netstandard1.3\System.Xml.XPath.XDocument.dll
-C:\Users\b162-\Source\Repos\DispensaryApi\eCQM2\src\eCQM2\Program.cs
-C:\Users\b162-\Source\Repos\DispensaryApi\eCQM2\src\eCQM2\Properties\AssemblyInfo.cs
+C:\Users\b162-\Source\Repos\eCQM2\src\eCQM2\Program.cs
+C:\Users\b162-\Source\Repos\eCQM2\src\eCQM2\Properties\AssemblyInfo.cs
