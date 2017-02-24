@@ -66,16 +66,18 @@ namespace eCQM2
                     var measureGroupingNodes = xmlDoc.Root?.XPathSelectElements("/measure/measureGrouping/group/clause")?.ToList();
                     foreach(var measureGroupingNode in measureGroupingNodes)
                     {
-                        var clauseName = measureGroupingNode?.XPathSelectElement("/measure/measureGrouping/group/clause")?.Attribute("displayName")?.Value;
-                        var logicalOps = measureGroupingNode?.XPathSelectElements("/measure/measureGrouping/group/clause/logicalOp")?.ToList();
-                        var subTreesInLogicalOp = measureGroupingNode?.XPathSelectElements("/measure/measureGrouping/group/clause/logicalOp/subTreeRef")?.ToList();
-
-                        var subTreeRefs = measureGroupingNode?.XPathSelectElements("/measure/measureGrouping/group/clause/subTreeRef")?.ToList();
+                        var clauseName = measureGroupingNode?.Attribute("displayName")?.Value;
+                        var logicalOps = measureGroupingNode?.Descendants()?.Where(n=>n.Name.LocalName =="logicalOp")?.ToList();
+                        var subTreeRefs = measureGroupingNode?.Descendants()?.Where(n => n.Name.LocalName == "subTreeRef")?.ToList();
 
                     }
                     //sub tree lookup
                     var subTreeGrouping = xmlDoc.Root?.XPathSelectElements("/measure/subTreeLookUp/subTree")?.ToList();
- 
+                    foreach(var subTree in subTreeGrouping)
+                      {
+                        var subTreeName = subTree?.Attribute("displayName")?.Value;
+                        var subTreeElements = subTree?.Descendants()?.ToList();
+                    }
                     //element lookup
                     var elementLookUpList = xmlDoc.Root?.XPathSelectElements("/measure/elementLookUp/qdm")?.ToList();
                 }
