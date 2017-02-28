@@ -98,6 +98,12 @@ namespace eCQM2
                     }
                     //element lookup
                     var elementLookUpList = xmlDoc.Root?.XPathSelectElements("/measure/elementLookUp/qdm")?.ToList();
+                    foreach(var qdm in elementLookUpList)
+                    {
+                        var qdmTitle = qdm?.Attribute("name")?.Value;
+                        var datatype = qdm?.Attribute("datatype")?.Value;
+                        var valueSet = qdm?.Attribute("oid")?.Value;
+                    }
                 }
             }
         }
