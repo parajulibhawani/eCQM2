@@ -44,7 +44,7 @@ namespace eCQM2
                     .Where(n => n.GetAttributeValue("class", "")
                     .Equals("file")).ToArray();
 
-                for (var i = 1; i < 3; i++)
+                for (var i = 2; i < 3; i++)
                 {
                     var htmlUrl = htmlFiles[2].Descendants("a")?.ElementAt(0).ChildAttributes("href")?.FirstOrDefault().Value;
                     await Task.Delay(2000);
@@ -69,14 +69,32 @@ namespace eCQM2
                         var clauseName = measureGroupingNode?.Attribute("displayName")?.Value;
                         var logicalOps = measureGroupingNode?.Descendants()?.Where(n=>n.Name.LocalName =="logicalOp")?.ToList();
                         var subTreeRefs = measureGroupingNode?.Descendants()?.Where(n => n.Name.LocalName == "subTreeRef")?.ToList();
-
+                        
+                        foreach(var subTreeRef in subTreeRefs)
+                        {
+                            var subTreeName = subTreeRef?.Attribute("displayName")?.Value;
+                        }
                     }
                     //sub tree lookup
                     var subTreeGrouping = xmlDoc.Root?.XPathSelectElements("/measure/subTreeLookUp/subTree")?.ToList();
                     foreach(var subTree in subTreeGrouping)
                       {
                         var subTreeName = subTree?.Attribute("displayName")?.Value;
-                        var subTreeElements = subTree?.Descendants()?.ToList();
+                        var subTreeElements = subTree?.Elements()?.ToList();
+                        for(var j = 0; j < subTreeElements.Count; j++)
+                        {
+                            var subTreeElementType = subTreeElements[j]?.Name.LocalName;
+                            var subTreeElementName = subTreeElements[j]?.Attribute("displayName")?.Value;
+                            var elementRefs = subTreeElements[j]?.Descendants()?.ToList();
+                            foreach(var elementRef in elementRefs)
+                            {
+                                if(elementRef?.Name.LocalName == "elementRef")
+                                {
+                                    var elementRefName = elementRef?.Attribute("displayName")?.Value;
+                                    var attributeValue = elementRef?.Element("attribute")?.Attribute("name")?.Value;
+                                }
+                            }
+                        }
                     }
                     //element lookup
                     var elementLookUpList = xmlDoc.Root?.XPathSelectElements("/measure/elementLookUp/qdm")?.ToList();
