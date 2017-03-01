@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Builder;
-using eQM;
+
 
 namespace eCQM2.Models
 {
@@ -31,7 +31,7 @@ namespace eCQM2.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TravelBlog;integrated security=True");
+            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EmeasureDB;integrated security=True");
         }
     }
 }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eQM
+namespace eCQM2.Models
 {
     [Table("References")]
     public class Reference

@@ -1,4 +1,5 @@
 ﻿
+using eCQM2.Models;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace eCQM2
         }
         private static async void Crawler()
         {
+            var db = new eMeasureDbContext();
             var url = "https://ecqi.healthit.gov/ep/ecqms-2017-performance-period";
             var httpClient = new HttpClient();
             var html = await httpClient.GetStringAsync(url);
@@ -52,21 +54,28 @@ namespace eCQM2
                     var newHtml2 = await htmlHttpClient.GetStringAsync(htmlUrl);
                     
                     var xmlDoc = XDocument.Parse(newHtml2);
-
+                    var measure = new eMeasure();
                     //measure details node
-                    var title = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/title")?.Value;
-                    var eMeasureId = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/emeasureid")?.Value;
-                    var version = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/version")?.Value;
-                    var guidance = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/guidance")?.Value;
-                    var clinicalRecommendation = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/recommendations")?.Value;
-                    var rationale = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/rationale")?.Value;
+                    measure.title = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/title")?.Value;
+                    measure.eMeasureNumber = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/emeasureid")?.Value;
+                    measure.version = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/version")?.Value;
+                    measure.guidance = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/guidance")?.Value;
+                    measure.clinicalRecommendation = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/recommendations")?.Value;
+                    measure.rationale = xmlDoc.Root?.XPathSelectElement("/measure/measureDetails/rationale")?.Value;
                     var references = xmlDoc.Root?.XPathSelectElements("/measure/measureDetails/references/reference")?.ToList();
 
+                    foreach (var refer in references)
+                    {
+                        var reference = new Reference();
+
+                        reference.reference = refer?.Value;
+                    }
                     //measure grouping
                     var measureGroupingNodes = xmlDoc.Root?.XPathSelectElements("/measure/measureGrouping/group/clause")?.ToList();
                     foreach(var measureGroupingNode in measureGroupingNodes)
                     {
-                        var clauseName = measureGroupingNode?.Attribute("displayName")?.Value;
+                        var newClause = new Clause();
+                        newClause.clauseName = measureGroupingNode?.Attribute("displayName")?.Value;
                         var logicalOps = measureGroupingNode?.Descendants()?.Where(n=>n.Name.LocalName =="logicalOp")?.ToList();
                         var subTreeRefs = measureGroupingNode?.Descendants()?.Where(n => n.Name.LocalName == "subTreeRef")?.ToList();
                         
@@ -100,9 +109,10 @@ namespace eCQM2
                     var elementLookUpList = xmlDoc.Root?.XPathSelectElements("/measure/elementLookUp/qdm")?.ToList();
                     foreach(var qdm in elementLookUpList)
                     {
-                        var qdmTitle = qdm?.Attribute("name")?.Value;
-                        var datatype = qdm?.Attribute("datatype")?.Value;
-                        var valueSet = qdm?.Attribute("oid")?.Value;
+                        var newQdm = new QDM();
+                        newQdm.qdmTitle = qdm?.Attribute("name")?.Value;
+                        newQdm.qdmDatatype = qdm?.Attribute("datatype")?.Value;
+                        newQdm.valueSet = qdm?.Attribute("oid")?.Value;
                     }
                 }
             }
