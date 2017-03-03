@@ -14,6 +14,9 @@ namespace eCQM2.Models
     {
         public DbSet<eMeasure> eMeasures { get; set; }
         public DbSet<Reference> References { get; set; }
+        public DbSet<Clause> Clauses { get; set; }
+        public DbSet<SubTree> SubTrees { get; set; }
+        public DbSet<QDM> QDMs { get; set; }
 
         public eMeasureDbContext(DbContextOptions<eMeasureDbContext> options)
             : base(options)
